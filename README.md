@@ -1,6 +1,6 @@
 # vino-veritas
 
-This template should help get you started developing with Vue 3 in Vite.
+Order at Vino Veritas with this web app powered by Vue and Tailwind.
 
 ## Recommended IDE Setup
 
