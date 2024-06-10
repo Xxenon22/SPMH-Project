@@ -1,9 +1,8 @@
 import type { Menu } from '@/types/menu'
-import { ref } from 'vue'
 
 interface Response {
-  count: number
-  data: Menu[]
+  count?: number
+  data: Menu[] | Menu
   err: boolean
 }
 
