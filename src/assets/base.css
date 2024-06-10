@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  h1 {
+    @apply text-5xl mb-2;
+  }
+
+  h2 {
+    @apply text-4xl;
+  }
+
+  a {
+    display: inline-block;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply p-4 text-white hover:bg-gray-200/25;
+  }
+}
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
