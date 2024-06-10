@@ -21,14 +21,23 @@ onMounted(async () => {
 
       <ul class="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
         <li v-for="menuItem in menu">
-          <article class="p-4 dark:bg-gray-700/75 rounded-lg">
-            <h2 class="text-lg">{{ menuItem.name }}</h2>
-            <p>{{ menuItem.type.type }}</p>
+          <RouterLink
+            :to="{ name: 'menu', params: { id: menuItem.id } }"
+            class="block"
+          >
+            <article class="p-4 dark:bg-gray-700/75 rounded-lg">
+              <h2 class="text-lg">{{ menuItem.name }}</h2>
+              <p>{{ menuItem.type.type }}</p>
 
-            <span v-for="variant_value in menuItem.variant_values" class="px-2">
-              {{ variant_value.option_value.value }} - {{ variant_value.price }}
-            </span>
-          </article>
+              <span
+                v-for="variant_value in menuItem.variant_values"
+                class="px-2"
+              >
+                {{ variant_value.option_value.value }} -
+                {{ variant_value.price }}
+              </span>
+            </article>
+          </RouterLink>
         </li>
       </ul>
     </main>
