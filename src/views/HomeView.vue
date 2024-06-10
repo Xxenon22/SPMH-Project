@@ -13,19 +13,24 @@ onMounted(async () => {
 
 <template>
   <BaseLayout>
-    <h1>Vino Veritas</h1>
-    <p>want to drink something? We've got you.</p>
+    <main class="mx-auto max-w-7xl p-4">
+      <header class="py-4">
+        <h1>Vino Veritas</h1>
+        <p>want to drink something? We've got you.</p>
+      </header>
 
-    <ul class="flex flex-col gap-4">
-      <li v-for="menuItem in menu">
-        <article class="p-4 dark:bg-slate-700">
-          <p>{{ menuItem.name }} - {{ menuItem.type.type }}</p>
+      <ul class="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <li v-for="menuItem in menu">
+          <article class="p-4 dark:bg-gray-700/75 rounded-lg">
+            <h2 class="text-lg">{{ menuItem.name }}</h2>
+            <p>{{ menuItem.type.type }}</p>
 
-          <span v-for="variant_value in menuItem.variant_values" class="px-2">
-            {{ variant_value.option_value.value }} - {{ variant_value.price }}
-          </span>
-        </article>
-      </li>
-    </ul>
+            <span v-for="variant_value in menuItem.variant_values" class="px-2">
+              {{ variant_value.option_value.value }} - {{ variant_value.price }}
+            </span>
+          </article>
+        </li>
+      </ul>
+    </main>
   </BaseLayout>
 </template>
