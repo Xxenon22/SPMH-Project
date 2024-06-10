@@ -13,6 +13,9 @@
       <li>
         <RouterLink :to="{ name: 'account' }" class="p-4">Account</RouterLink>
       </li>
+      <li>
+        <RouterLink :to="{ name: 'login' }" class="p-4">Login</RouterLink>
+      </li>
     </ul>
   </nav>
 </template>
