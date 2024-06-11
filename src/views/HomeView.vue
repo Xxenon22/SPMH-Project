@@ -24,13 +24,8 @@ onMounted(async () => {
 
       <template v-else>
         <li v-for="menuItem in menu">
-          <article
-            class="card bg-neutral-700/20 hover:bg-neutral-700/40 transition-colors h-full"
-          >
-            <RouterLink
-              :to="{ name: 'menu', params: { id: menuItem.id } }"
-              class="card-body"
-            >
+          <article class="card bg-neutral-700/20 transition-colors h-full">
+            <div class="card-body">
               <h2 class="card-title">{{ menuItem.name }}</h2>
               <p>{{ menuItem.type.type }}</p>
 
@@ -38,7 +33,11 @@ onMounted(async () => {
                 {{ variant_value.option_value.value }} -
                 {{ variant_value.price }}
               </span>
-            </RouterLink>
+
+              <button class="btn btn-block outline outline-accent">
+                Tambah
+              </button>
+            </div>
           </article>
         </li>
       </template>
