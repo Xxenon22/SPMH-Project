@@ -1,4 +1,6 @@
 import { useFetch } from '@/composables/fetch'
+import router from '@/router'
+import type { User } from '@/types/user'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -8,7 +10,8 @@ interface Credentials {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref()
+  const token = ref('')
+  const user = ref<User | null>(null)
 
   async function logIn({ email, password }: Credentials) {
     const data = JSON.stringify({
@@ -25,7 +28,11 @@ export const useAuthStore = defineStore('auth', () => {
         body: data,
       })
 
-      return result
+      if (result) {
+        token.value = result.token!
+        document.cookie = `vino-access-token=${token.value}`
+        router.push({ name: 'home' })
+      }
     } catch (err) {
       console.error('error when logging in: ', err)
       return null

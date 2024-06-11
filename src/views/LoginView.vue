@@ -11,12 +11,7 @@ const credentials = reactive({
 })
 
 async function logIn() {
-  console.log('logging in...')
-  const result = await authStore.logIn(credentials)
-
-  if (result) {
-    document.cookie = `vino-access-token=${result.token}`
-  }
+  await authStore.logIn(credentials)
 }
 </script>
 
