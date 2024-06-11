@@ -2,12 +2,13 @@
 import { onMounted } from 'vue'
 import BaseLayout from '../layouts/BaseLayout.vue'
 import { useMenu } from '@/composables/menu'
+import type { Menu } from '@/types/menu'
 
 const { menu, getMenu } = useMenu()
 
 onMounted(async () => {
-  const { count, data } = await getMenu()
-  menu.value = data
+  const { data } = await getMenu()
+  menu.value = data as Menu[]
 })
 </script>
 
@@ -20,25 +21,26 @@ onMounted(async () => {
       </header>
 
       <ul class="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        <li v-for="menuItem in menu">
-          <RouterLink
-            :to="{ name: 'menu', params: { id: menuItem.id } }"
-            class="block"
-          >
-            <article class="p-4 dark:bg-gray-700/75 rounded-lg">
-              <h2 class="text-lg">{{ menuItem.name }}</h2>
-              <p>{{ menuItem.type.type }}</p>
+        <li class="message" v-if="!menu || !menu.length">No menu found.</li>
 
-              <span
-                v-for="variant_value in menuItem.variant_values"
-                class="px-2"
+        <template v-else>
+          <li v-for="menuItem in menu">
+            <article class="card bg-neutral-700/20 h-full">
+              <RouterLink
+                :to="{ name: 'menu', params: { id: menuItem.id } }"
+                class="card-body"
               >
-                {{ variant_value.option_value.value }} -
-                {{ variant_value.price }}
-              </span>
+                <h2 class="card-title">{{ menuItem.name }}</h2>
+                <p>{{ menuItem.type.type }}</p>
+
+                <span v-for="variant_value in menuItem.variant_values">
+                  {{ variant_value.option_value.value }} -
+                  {{ variant_value.price }}
+                </span>
+              </RouterLink>
             </article>
-          </RouterLink>
-        </li>
+          </li>
+        </template>
       </ul>
     </main>
   </BaseLayout>
