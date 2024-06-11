@@ -1,21 +1,27 @@
 <template>
-  <nav class="p-4">
+  <nav class="bg-primary">
     <ul class="flex gap-2">
       <li>
-        <RouterLink :to="{ name: 'home' }" class="p-4">Home</RouterLink>
+        <RouterLink :to="{ name: 'home' }" class="nav-link">Home</RouterLink>
       </li>
       <li>
-        <RouterLink :to="{ name: 'about' }" class="p-4">About</RouterLink>
+        <RouterLink :to="{ name: 'about' }" class="nav-link">About</RouterLink>
       </li>
       <li>
-        <RouterLink :to="{ name: 'orders' }" class="p-4">Orders</RouterLink>
+        <RouterLink :to="{ name: 'orders' }" class="nav-link">
+          Orders
+        </RouterLink>
       </li>
       <li>
-        <RouterLink :to="{ name: 'account' }" class="p-4">Account</RouterLink>
+        <RouterLink :to="{ name: 'account' }" class="nav-link">
+          Account
+        </RouterLink>
       </li>
       <li>
-        <RouterLink :to="{ name: 'login' }" class="p-4">Login</RouterLink>
+        <RouterLink :to="{ name: 'login' }" class="nav-link">Login</RouterLink>
       </li>
     </ul>
   </nav>
 </template>
+
+<style scoped></style>
