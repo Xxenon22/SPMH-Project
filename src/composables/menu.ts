@@ -7,7 +7,7 @@ export function useMenu() {
   const menuItem = ref<Menu | null>(null)
 
   async function getMenu(page: number = 1, type?: string) {
-    let url = `menu?page=${page}`
+    let url = `api/menu?page=${page}`
     if (type) {
       url += `&type_id=${type}`
     }
@@ -18,7 +18,7 @@ export function useMenu() {
   }
 
   async function getMenuById(id: string) {
-    const { data, err } = await useFetch(`menu/${id}`)
+    const { data, err } = await useFetch(`api/menu/${id}`)
     if (err) throw err
     return { data }
   }
