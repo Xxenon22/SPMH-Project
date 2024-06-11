@@ -13,12 +13,12 @@
         </RouterLink>
       </li>
       <li>
-        <RouterLink :to="{ name: 'account' }" class="nav-link"
-          >Account</RouterLink
-        >
+        <RouterLink :to="{ name: 'account' }" class="nav-link">
+          Account
+        </RouterLink>
       </li>
       <li>
-        <RouterLink :to="{ name: 'login' }" class="p-4">Login</RouterLink>
+        <RouterLink :to="{ name: 'login' }" class="nav-link">Login</RouterLink>
       </li>
     </ul>
   </nav>
