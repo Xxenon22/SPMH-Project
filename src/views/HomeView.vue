@@ -25,7 +25,9 @@ onMounted(async () => {
 
         <template v-else>
           <li v-for="menuItem in menu">
-            <article class="card bg-neutral-700/20 h-full">
+            <article
+              class="card bg-neutral-700/20 hover:bg-neutral-700/40 transition-colors h-full"
+            >
               <RouterLink
                 :to="{ name: 'menu', params: { id: menuItem.id } }"
                 class="card-body"
