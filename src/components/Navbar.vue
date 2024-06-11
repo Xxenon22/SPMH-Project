@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-primary p-4">
+  <nav class="bg-primary">
     <ul class="flex gap-2">
       <li>
         <RouterLink :to="{ name: 'home' }" class="nav-link">Home</RouterLink>
