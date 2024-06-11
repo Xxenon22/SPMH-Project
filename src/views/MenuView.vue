@@ -30,9 +30,7 @@ onMounted(async () => {
         </li>
       </ul>
 
-      <RouterLink to="" class="p-4 outline outline-solid outline-primary"
-        >Buy
-      </RouterLink>
+      <RouterLink to="" class="btn outline outline-primary"> Buy </RouterLink>
     </main>
   </BaseLayout>
 </template>
