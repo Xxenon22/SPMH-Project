@@ -2,14 +2,16 @@ import type { Menu } from '@/types/menu'
 
 interface Response {
   count?: number
-  data: Menu[] | Menu
+  data?: Menu[] | Menu
   err: boolean
+  message?: string
+  token?: string
 }
 
-export async function useFetch(path: string) {
+export async function useFetch(path: string, options?: RequestInit) {
   const url = import.meta.env.VITE_API_URL
 
-  const data = await fetch(`${url}/${path}`)
+  const data = await fetch(`${url}/${path}`, options)
   const response = await data.json()
 
   if (response.err) {
