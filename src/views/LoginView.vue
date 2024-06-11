@@ -1,15 +1,19 @@
 <script setup lang="ts">
+import TextInput from '@/components/TextInput.vue'
 import BaseLayout from '../layouts/BaseLayout.vue'
 </script>
 
 <template>
   <BaseLayout>
-    <img src="../assets/fluent_drink-coffee-16-filled.png" alt="" />
-    <div class="container">
-      <h1>Login</h1>
-      <form>
-        <input type="text" placeholder="Username" />
-        <input type="text" placeholder="Password" />
+    <div class="grid">
+      <img src="../assets/fluent_drink-coffee-16-filled.png" alt="" />
+
+      <form
+        class="bg-primary max-w-8xl mx-auto p-8 rounded-lg flex flex-col gap-4"
+      >
+        <h1 class="text-center">Login</h1>
+        <TextInput placeholder="Username" />
+        <TextInput placeholder="Password" />
         <span
           ><input
             type="checkbox"
@@ -19,7 +23,7 @@ import BaseLayout from '../layouts/BaseLayout.vue'
           />
           Remember this account</span
         >
-        <button type="button">Login</button>
+        <button class="btn bg-accent mx-auto">Login</button>
 
         <div class="go-SignUp">
           <span>Don’t have an account? <a href="#">make account</a></span>
@@ -30,21 +34,6 @@ import BaseLayout from '../layouts/BaseLayout.vue'
 </template>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100vh;
-}
-
 img {
   margin-left: 40%;
   width: 112px;
@@ -55,13 +44,7 @@ img {
 }
 
 .container {
-  background-color: #b88554;
   border-radius: 20px;
-  position: relative;
-  overflow: hidden;
-  width: 500px;
-  max-width: 100%;
-  min-height: 450px;
 }
 
 .container h1 {
@@ -85,7 +68,7 @@ img {
   font-size: 20px;
 }
 
-.container button {
+form button {
   margin-left: 30%;
   background-color: #654326;
   color: #fff;
@@ -95,43 +78,14 @@ img {
   padding: 5px;
   font-weight: 500;
   letter-spacing: 0.5px;
-  margin-top: 10px;
-}
-
-.container form {
-  background-color: #b88554;
-  display: flex;
-  align-items: cneter;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 80px;
-  height: 100%;
-}
-
-.container input {
-  background-color: #fff;
-  color: #b88554;
-  border: none;
-  margin: 8px 0;
-  padding: 10px 15px;
-  font-size: 15px;
-  border-radius: 15px;
-  outline: none;
 }
 
 .container button {
-  margin-top: 30px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.35);
 }
 
 span input {
-  margin: 0;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.35);
-}
-
-.form button {
-  border-radius: 6px;
-  outline: none;
 }
 
 .form-container {
