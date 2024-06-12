@@ -2,7 +2,7 @@ import { useFetch } from '@/composables/fetch'
 import router from '@/router'
 import type { User } from '@/types/user'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 interface Credentials {
   email: string
@@ -10,7 +10,20 @@ interface Credentials {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const token = ref('')
+  const TOKEN_KEY = 'vino-access-token'
+
+  const token = reactive({
+    value: '',
+    set(newValue: string) {
+      this.value = newValue
+      localStorage.setItem(TOKEN_KEY, this.value)
+    },
+    get() {
+      this.value = localStorage.getItem(TOKEN_KEY) || ''
+      return this.value
+    },
+  })
+
   const user = ref<User | null>(null)
 
   async function logIn({ email, password }: Credentials) {
@@ -29,8 +42,8 @@ export const useAuthStore = defineStore('auth', () => {
       })
 
       if (result) {
-        token.value = result.token!
-        document.cookie = `vino-access-token=${token.value}`
+        console.log(result)
+        token.set(result.token!)
         router.push({ name: 'home' })
       }
     } catch (err) {
@@ -39,5 +52,24 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { user, logIn }
+  async function getUser() {
+    const authToken = token.get()
+    if (!authToken) return
+
+    try {
+      const { data, err } = await useFetch('api/user', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+
+      if (err) throw err
+      user.value = data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  return { user, logIn, getUser }
 })

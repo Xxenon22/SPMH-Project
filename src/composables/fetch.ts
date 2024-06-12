@@ -15,7 +15,7 @@ export async function useFetch(path: string, options?: RequestInit) {
   const response = await data.json()
 
   if (response.err) {
-    throw response.err
+    throw new Error(response.message)
   }
 
   return response as Response
