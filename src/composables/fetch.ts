@@ -1,8 +1,10 @@
 import type { Menu } from '@/types/menu'
+import type { User } from '@/types/user'
 
+//TODO: type data better
 interface Response {
   count?: number
-  data?: Menu[] | Menu
+  data?: Menu | Menu[] | User | User[]
   err: boolean
   message?: string
   token?: string
