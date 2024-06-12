@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import logo from '@/assets/fluent_drink-coffee-16-filled.png'
+import { useAuthStore } from '@/stores/auth'
 import { ref } from 'vue'
 
 const isOpen = ref(false)
+const authStore = useAuthStore()
 </script>
 
 <template>
@@ -42,12 +44,12 @@ const isOpen = ref(false)
             Orders
           </RouterLink>
         </li>
-        <li>
+        <li v-if="authStore.user">
           <RouterLink :to="{ name: 'account' }" class="nav-link">
             Account
           </RouterLink>
         </li>
-        <li>
+        <li v-else>
           <RouterLink :to="{ name: 'login' }" class="nav-link"
             >Login</RouterLink
           >
