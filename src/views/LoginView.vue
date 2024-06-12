@@ -17,9 +17,11 @@ async function logIn() {
 
 <template>
   <BaseLayout>
-    <div class="grid grid-cols-1 min-h-screen">
+    <div
+      class="grid grid-cols-[1fr_minmax(60ch,1fr)_1fr] items-center min-h-screen"
+    >
       <form
-        class="bg-primary max-w-8xl mx-auto p-8 rounded-lg flex flex-col gap-4 place-self-center relative"
+        class="bg-primary p-8 rounded-lg flex flex-col gap-4 col-start-2 relative"
         @submit.prevent="logIn"
       >
         <figure
@@ -49,16 +51,12 @@ async function logIn() {
         <button class="btn bg-accent mx-auto w-full shadow-lg">Login</button>
 
         <div class="go-SignUp">
-          <span>Don’t have an account? <a href="#">make account</a></span>
+          <span
+            >Don’t have an account?
+            <RouterLink :to="{ name: 'signup' }">make account</RouterLink></span
+          >
         </div>
       </form>
     </div>
   </BaseLayout>
 </template>
-
-<style>
-.go-SignUp {
-  margin: 30px;
-  white-space: noWrap;
-}
-</style>
