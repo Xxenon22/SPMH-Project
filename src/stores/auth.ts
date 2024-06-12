@@ -42,9 +42,9 @@ export const useAuthStore = defineStore('auth', () => {
       })
 
       if (result) {
-        console.log(result)
         token.set(result.token!)
         router.push({ name: 'home' })
+        getUser()
       }
     } catch (err) {
       console.error('error when logging in: ', err)
@@ -65,7 +65,7 @@ export const useAuthStore = defineStore('auth', () => {
       })
 
       if (err) throw err
-      user.value = data
+      user.value = data as User
     } catch (error) {
       console.error(error)
     }
