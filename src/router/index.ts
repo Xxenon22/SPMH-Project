@@ -33,12 +33,18 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/LoginView.vue'),
     },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('../views/SignupView.vue'),
+    },
   ],
 })
 
 router.beforeEach(async (to, _) => {
   const { user } = useAuthStore()
-  if (user && to.name === 'login') return { name: 'home' }
+  if (user && (to.name === 'login' || to.name === 'signup'))
+    return { name: 'home' }
   if (!user && to.name === 'account') return { name: 'home' }
 })
 
