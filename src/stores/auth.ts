@@ -2,9 +2,10 @@ import { useFetch } from '@/composables/fetch'
 import router from '@/router'
 import type { User } from '@/types/user'
 import { defineStore } from 'pinia'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 
 interface Credentials {
+  name?: string
   email: string
   password: string
 }
@@ -12,7 +13,7 @@ interface Credentials {
 export const useAuthStore = defineStore('auth', () => {
   const TOKEN_KEY = 'vino-access-token'
 
-  const token = reactive({
+  const token = ref({
     value: '',
     set(newValue: string) {
       this.value = newValue
@@ -42,9 +43,9 @@ export const useAuthStore = defineStore('auth', () => {
       })
 
       if (result) {
-        token.set(result.token!)
+        token.value.set(result.token!)
         router.push({ name: 'home' })
-        getUser()
+        await getUser()
       }
     } catch (err) {
       console.error('error when logging in: ', err)
@@ -52,8 +53,30 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  async function signUp({ name, email, password }: Credentials) {
+    try {
+      const result = await useFetch('signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+        }),
+      })
+
+      if (result.err) throw new Error(result.message)
+      token.value.set(result.token!)
+      await getUser()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async function getUser() {
-    const authToken = token.get()
+    const authToken = token.value.get()
     if (!authToken) return
 
     try {
@@ -71,5 +94,5 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { user, logIn, getUser }
+  return { user, token, logIn, signUp, getUser }
 })
