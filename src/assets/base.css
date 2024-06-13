@@ -8,7 +8,7 @@
   }
 
   h1 {
-    font-family: 'Playfair Display', 'Times New Roman', Georgia, Times,
+    font-family: 'Playfair Display Variable', 'Times New Roman', Georgia, Times,
       'Times New Roman', serif;
     @apply text-5xl mb-2;
   }
