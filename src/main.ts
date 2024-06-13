@@ -1,4 +1,6 @@
 import './assets/main.css'
+import '@fontsource/poppins'
+import '@fontsource-variable/playfair-display'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
