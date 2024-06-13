@@ -3,12 +3,19 @@ import { onMounted } from 'vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import { useMenu } from '@/composables/menu'
 import type { Menu } from '@/types/menu'
+import { useAuthStore } from '@/stores/auth'
 
 const { menu, getMenu } = useMenu()
 
 onMounted(async () => {
   const { data } = await getMenu()
   menu.value = data as Menu[]
+})
+
+const authStore = useAuthStore()
+onMounted(async () => {
+  const token = authStore.token.get()
+  await authStore.getUser(token)
 })
 </script>
 

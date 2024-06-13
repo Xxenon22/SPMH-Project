@@ -2,9 +2,10 @@ import { useFetch } from '@/composables/fetch'
 import router from '@/router'
 import type { User } from '@/types/user'
 import { defineStore } from 'pinia'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 
 interface Credentials {
+  name?: string
   email: string
   password: string
 }
@@ -12,7 +13,7 @@ interface Credentials {
 export const useAuthStore = defineStore('auth', () => {
   const TOKEN_KEY = 'vino-access-token'
 
-  const token = reactive({
+  const token = ref({
     value: '',
     set(newValue: string) {
       this.value = newValue
@@ -41,26 +42,45 @@ export const useAuthStore = defineStore('auth', () => {
         body: data,
       })
 
-      if (result) {
-        token.set(result.token!)
-        router.push({ name: 'home' })
-        getUser()
-      }
+      token.value.set(result.token!)
+      router.push({ name: 'home' })
+      await getUser(token.value.value)
     } catch (err) {
       console.error('error when logging in: ', err)
       return null
     }
   }
 
-  async function getUser() {
-    const authToken = token.get()
-    if (!authToken) return
+  async function signUp({ name, email, password }: Credentials) {
+    try {
+      const result = await useFetch('signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+        }),
+      })
 
+      if (result.err) throw new Error(result.message)
+
+      token.value.set(result.token!)
+      router.push({ name: 'home' })
+      await getUser(token.value.value)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function getUser(token: string) {
     try {
       const { data, err } = await useFetch('api/user', {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${token}`,
         },
       })
 
@@ -71,5 +91,5 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { user, logIn, getUser }
+  return { user, token, logIn, signUp, getUser }
 })
