@@ -6,7 +6,9 @@ import { useAuthStore } from './stores/auth'
 const authStore = useAuthStore()
 
 onMounted(async () => {
-  await authStore.getUser()
+  if (authStore.token.value) {
+    await authStore.getUser()
+  }
 })
 </script>
 
