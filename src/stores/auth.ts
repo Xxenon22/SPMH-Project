@@ -42,11 +42,9 @@ export const useAuthStore = defineStore('auth', () => {
         body: data,
       })
 
-      if (result) {
-        token.value.set(result.token!)
-        router.push({ name: 'home' })
-        await getUser()
-      }
+      token.value.set(result.token!)
+      router.push({ name: 'home' })
+      await getUser(token.value.value)
     } catch (err) {
       console.error('error when logging in: ', err)
       return null
@@ -68,22 +66,21 @@ export const useAuthStore = defineStore('auth', () => {
       })
 
       if (result.err) throw new Error(result.message)
+
       token.value.set(result.token!)
-      await getUser()
+      router.push({ name: 'home' })
+      await getUser(token.value.value)
     } catch (error) {
       console.error(error)
     }
   }
 
-  async function getUser() {
-    const authToken = token.value.get()
-    if (!authToken) return
-
+  async function getUser(token: string) {
     try {
       const { data, err } = await useFetch('api/user', {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${token}`,
         },
       })
 
