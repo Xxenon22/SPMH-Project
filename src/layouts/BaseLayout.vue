@@ -6,3 +6,12 @@ import Navbar from '../components/Navbar.vue'
   <Navbar />
   <slot />
 </template>
+
+<style>
+body {
+  background-image: url(../assets/background.svg);
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
